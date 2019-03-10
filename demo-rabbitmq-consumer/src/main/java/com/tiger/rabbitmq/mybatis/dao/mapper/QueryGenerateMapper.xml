@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiger.rabbitmq.mybatis.dao.mapper.QueryGenerateMapper">
+    <sql id="QueryGenerate">
+        <if test="query.valid">
+            <foreach collection="query.fragments" item="fragment">
+                <choose>
+                    <when test="fragment.sqlFragment">
+                        ${fragment.sql}
+                    </when>
+                    <when test="fragment.valueFragment">
+                        #{fragment.value}
+                    </when>
+                </choose>
+            </foreach>
+        </if>
+    </sql>
+
+</mapper>

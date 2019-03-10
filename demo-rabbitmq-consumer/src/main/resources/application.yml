@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: demo-rabbitmq
+  profiles:
+    active: dev
+
+  thymeleaf:
+    cache: false
+    templates_root: src/main/resources/templates/
+    prefix: classpath:/templates/
+    content-type: text/html
+    check-template-location: true
+    suffix: .html
+    mode: LEGACYHTML5
+  http:
+    multipart:
+      max-file-size: 600Mb
+      max-request-size: 600Mb
+logging:
+  config: classpath:logback.xml
+
+mybatis:
+        mapperLocations: classpath*:com/tiger/rabbitmq/**/dao/**/*Mapper.xml
+        config-location: classpath:mybatis-config.xml

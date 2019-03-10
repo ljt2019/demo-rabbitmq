@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiger.rabbitmq.dao.exp.BrokerMessageLogExpMapper">
+
+    <!--查询消息状态为0(发送中) 且已经超时的消息集合
+    会存在消息被投递两次的情况，
+    因此需要设置最大超时，最大延迟时间，尽可能减少消息被重复投递的可能性
+    -->
+    <select id="selectStateAndTimeoutMessage" resultType="com.tiger.rabbitmq.entity.BrokerMessageLog">
+          <![CDATA[
+          select id as id
+            , message_id as messageId
+            , message as message
+            , try_count as tryCount
+            , state as state
+            , next_retry as nextRetry
+            , create_date as createDate
+            , update_date as updateDate
+          from broker_message_log
+          where state = 0
+          and next_retry <= sysdate()
+        ]]>
+    </select>
+
+    <!--重新发送统计count发送次数 +1-->
+    <update id="updateReSend">
+      update broker_message_log bml
+      set bml.try_count = bml.try_count + 1,
+        bml.update_date = now()
+      where bml.message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+
+    <!--更新最终消息发送结果 成功 or 失败-->
+    <update id="changeBrokerMessageLogState">
+      update broker_message_log bml
+      set bml.state = #{state,jdbcType=VARCHAR},
+          bml.update_date =now()
+      where bml.message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

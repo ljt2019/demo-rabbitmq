@@ -1,0 +1,148 @@
+//common style
+@orange:#f90;
+@textColor:#f4f4f4;
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+*:before,*:after{
+  box-sizing: border-box;
+}
+html,body{
+  width:100%;
+  height:100%;
+  background: #f4f4f4 !important;
+}
+.nav{
+  width: 100%;
+  background: @orange;
+  .logo{
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    float: left;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    img{
+      padding-bottom: 10px;
+    }
+    label{
+      font-size: 1rem;
+      color: #f4f4f4;
+    }
+  }
+  .navbar{
+    margin: 0;
+    padding: 0;
+    position: relative;
+    vertical-align: center;
+    ul{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      margin-right: 3rem;
+      float: right;
+      .selected {
+        background: #cc7a00;
+      }
+      li{
+        cursor: pointer;
+        float: left;
+        padding: 1rem;
+        figure{
+          margin: 0;
+          padding: 0;
+          text-align: center;
+          figcaption{
+            margin-top: 10px;
+            font-size: 0.825rem;
+            a{
+              color: #f4f4f4 !important;
+              text-decoration: none;
+            }
+            a:visited{
+                color: #F4F4F4 !important;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+.body-wrap{
+  width: 100%;
+  position:relative;
+  margin: 0 auto;
+  background: #f4f4f4;
+  .content-body{
+    padding: 2rem 4rem;
+    .ivu-date-picker-cells-cell{
+      color: @orange !important;
+    }
+    .ivu-date-picker-cells-cell-disabled{
+      color: #666 !important;
+    }
+    .time-area{
+      width: 100%;
+      position: relative;
+      .date-select{
+        float: left;
+      }
+      .data-area{
+        float: right;
+
+        background: white;
+        ul{
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          .active{
+            background: @orange;
+            color: #f4f4f4;
+          }
+          li{
+            cursor: pointer;
+            color: rgba(23,78,123,1);
+            padding: 5px 1rem;
+            float: left;
+            border: 1px solid @orange;
+            &:first-child{
+              border-top-left-radius: 4px;
+              border-bottom-left-radius: 4px;
+              border-right:none;
+            }
+            &:last-child{
+              border-top-right-radius: 4px;
+              border-bottom-right-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+    .data-show-body{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 2rem;
+      .ivu-table-wrapper{
+        width:100%;
+        margin-bottom: 1rem;
+        .ivu-table-body{
+          height:300px;
+          overflow-y: auto;
+        }
+      }
+      #cluster,#cell{
+        width:100% !important;
+      }
+      #cluster{
+        .ivu-table-body{
+          height:350px;
+        }
+      }
+    }
+  }
+}
